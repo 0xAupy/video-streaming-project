@@ -4,7 +4,16 @@ import connectDB from "./db/mongodb.js";
 dotenv.config({
   path: "./env",
 });
-connectDB();
+connectDB()
+  .then(() => {
+    const port = process.env.PORT || 8000;
+    app.listen(port, () => {
+      console.log(`Sever is running on port : ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MOngoDB connection failed", err);
+  });
 
 // import express from "express";
 // const app = express();
